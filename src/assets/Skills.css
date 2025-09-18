@@ -1,0 +1,43 @@
+.skills-section {
+  color: #fff;
+}
+
+.skills-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, #00DBDE, #FC00FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+}
+
+.skill-item {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.skill-name {
+  font-weight: 500;
+}
+
+.skill-percent {
+  font-weight: 600;
+  color: #00DBDE;
+}
+
+/* Custom ProgressBar Gradient */
+.skill-bar .progress-bar {
+  background: linear-gradient(90deg, #00DBDE, #FC00FF);
+  border-radius: 50px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .skills-title {
+    font-size: 2rem;
+  }
+
+  .skill-name {
+    font-size: 1rem;
+  }
+}

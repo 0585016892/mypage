@@ -1,0 +1,80 @@
+/* src/components/Navbar.css */
+
+/* Nền trong suốt mặc định */
+.navbar-custom {
+  padding: 1rem 2rem;
+  transition: all 0.3s ease-in-out;
+  font-family: 'Montserrat', sans-serif;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  top: 0;
+}
+
+/* Logo */
+.navbar-custom .navbar-brand {
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #FC00FF; /* tím gradient chủ đạo */
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+  transition: color 0.3s ease;
+}
+
+.navbar-custom .navbar-brand:hover {
+  color: #00DBDE;
+}
+
+/* Nav links */
+.navbar-custom .nav-link {
+  color: #fff;
+  margin-left: 1rem;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.navbar-custom .nav-link::after {
+  content: '';
+  display: block;
+  height: 2px;
+  background: linear-gradient(90deg, #00DBDE, #FC00FF);
+  transition: width 0.3s;
+  width: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.navbar-nav .nav-link.active{
+    color: #00DBDE;
+}
+.navbar-custom .nav-link:hover {
+  color: #00DBDE;
+}
+
+.navbar-custom .nav-link:hover::after {
+  width: 100%;
+}
+
+/* Navbar toggle icon (mobile) */
+.navbar-custom .navbar-toggler {
+  border: none;
+  outline: none;
+}
+
+
+
+/* Scroll effect: thay nền khi scroll xuống */
+.navbar-custom.scrolled {
+  background-color: rgba(0, 0, 0, 0.95);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: all 0.3s ease-in-out;
+}
+@media (max-width: 480px) {
+  .navbar-custom{
+        background: rgba(0, 0, 0, 0.95);;
+
+  }
+  .navbar-custom .nav-link{
+    padding: 15px 0;
+  }
+}

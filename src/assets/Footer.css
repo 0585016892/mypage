@@ -1,0 +1,18 @@
+.footer-section {
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  color: #fff;
+}
+
+.footer-section p {
+  font-size: 0.9rem;
+  margin-top: 5px;
+  color: #ccc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-icon {
+    margin: 0 8px;
+    font-size: 1rem;
+  }
+}
