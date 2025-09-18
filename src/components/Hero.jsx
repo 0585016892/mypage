@@ -34,7 +34,7 @@ const Hero = () => {
   }, [index, deleting, text]);
 
   return (
-    <section className="hero-section d-flex align-items-center justify-content-center">
+    <section style={{"overflow-y": "hidden"}} className="hero-section d-flex align-items-center justify-content-center">
       <Navbar />
       <Container>
         <Row className="align-items-center">
