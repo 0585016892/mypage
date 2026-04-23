@@ -3,7 +3,6 @@ import { Layout, Space, Typography, Divider } from 'antd';
 import { 
   FacebookFilled, 
   InstagramOutlined, 
-  LinkedinFilled, 
   GithubFilled,
   HeartFilled 
 } from '@ant-design/icons';
