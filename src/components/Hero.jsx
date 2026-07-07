@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { Row, Col, Button, Space, Typography } from 'antd';
-import { 
-  FacebookFilled, 
-  InstagramOutlined, 
-  LinkedinFilled, 
+import React, { useState, useEffect } from "react";
+import { Row, Col, Button, Space, Typography } from "antd";
+import {
+  FacebookFilled,
+  InstagramOutlined,
+  LinkedinFilled,
   PhoneOutlined,
-  GithubFilled 
-} from '@ant-design/icons';
-import { motion, AnimatePresence } from 'framer-motion';
-// Import lại Navbar của bạn ở đây
-import Navbar from './NavbarComponent'; 
-import user from '../assets/a.png';
+  GithubFilled,
+} from "@ant-design/icons";
+import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "../contexts/ThemeContext"; // Import hook từ ThemeContext của bạn
+import Navbar from "./NavbarComponent";
+import user from "../assets/a.png";
 
 const { Title, Paragraph, Text } = Typography;
 
 const Hero = () => {
   const [index, setIndex] = useState(0);
-  const roles = ["Frontend Developer","React Specialist"];
-  
+  const roles = ["Frontend Developer", "React Specialist"];
+  const { theme } = useTheme();
+
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % roles.length);
@@ -25,12 +26,27 @@ const Hero = () => {
     return () => clearInterval(timer);
   }, [roles.length]);
 
+  const isDark = theme === "dark";
+
   return (
-    <section style={styles.section}>
-      {/* TRẢ LẠI HEADER CHO BẠN Ở ĐÂY */}
-      <div style={styles.navWrapper}>
-        <Navbar />
-      </div>
+    <section
+      style={{
+        ...styles.section,
+        background: isDark ? "#0a0a0a" : "#ffffff",
+        color: isDark ? "#ffffff" : "#111111",
+      }}
+    >
+      {/* Animation dịch chuyển hình khối Blob mượt mà bằng CSS */}
+      <style>{`
+        @keyframes morph {
+          0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+          50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+          100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+      `}</style>
+
+      {/* Gọi Navbar chuyên dụng */}
+      <Navbar />
 
       <div style={styles.container}>
         <Row align="middle" gutter={[40, 40]}>
@@ -41,12 +57,22 @@ const Hero = () => {
               transition={{ duration: 0.8 }}
             >
               <Text style={styles.greeting}>XIN CHÀO, TÔI LÀ</Text>
-              <Title level={1} style={styles.name}>
+
+              <Title
+                level={1}
+                style={{ ...styles.name, color: isDark ? "#fff" : "#111" }}
+              >
                 Trần Khánh Hưng
               </Title>
-              
+
               <div style={styles.typewriterWrapper}>
-                <Text style={styles.roleText}>Một </Text>
+                <Text
+                  style={{
+                    color: isDark ? "rgba(255,255,255,0.7)" : "rgba(0,0,0,0.6)",
+                  }}
+                >
+                  Một{" "}
+                </Text>
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={roles[index]}
@@ -61,37 +87,57 @@ const Hero = () => {
                 </AnimatePresence>
               </div>
 
-              <Paragraph style={styles.description}>
-                Tôi xây dựng các ứng dụng web hiện đại, tập trung vào trải nghiệm người dùng
-                và hiệu suất hệ thống. Chuyên gia triển khai các giải pháp với ReactJS.
+              <Paragraph
+                style={{
+                  ...styles.description,
+                  color: isDark ? "#999" : "#555",
+                }}
+              >
+                Tôi xây dựng các ứng dụng web hiện đại, tập trung vào trải
+                nghiệm người dùng và hiệu suất hệ thống. Chuyên gia triển khai
+                các giải pháp với ReactJS.
               </Paragraph>
 
               <Space size="large" style={{ marginBottom: 32 }}>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button 
-                    type="primary" 
-                    size="large" 
-                    icon={<PhoneOutlined />} 
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button
+                    type="primary"
+                    size="large"
+                    icon={<PhoneOutlined />}
                     href="tel:+84587142011"
                     style={styles.primaryBtn}
                   >
                     Liên hệ ngay
                   </Button>
                 </motion.div>
-                
+
                 <Space size="middle">
                   {[
-                    { icon: <FacebookFilled />, link: "https://www.facebook.com/tran.khanh.hung.770881/" },
-                    { icon: <InstagramOutlined />, link: "https://www.instagram.com/_hung_lucky/" },
+                    {
+                      icon: <FacebookFilled />,
+                      link: "https://www.facebook.com/tran.khanh.hung.770881/",
+                    },
+                    {
+                      icon: <InstagramOutlined />,
+                      link: "https://www.instagram.com/_hung_lucky/",
+                    },
                     { icon: <LinkedinFilled />, link: "#" },
-                    { icon: <GithubFilled />, link: "#" }
+                    { icon: <GithubFilled />, link: "#" },
                   ].map((item, idx) => (
                     <motion.a
                       key={idx}
                       href={item.link}
                       target="_blank"
-                      whileHover={{ y: -5, color: '#1890ff' }}
-                      style={styles.socialIcon}
+                      whileHover={{ y: -5, color: "#1890ff" }}
+                      style={{
+                        ...styles.socialIcon,
+                        color: isDark
+                          ? "rgba(255,255,255,0.6)"
+                          : "rgba(0,0,0,0.5)",
+                      }}
                     >
                       {item.icon}
                     </motion.a>
@@ -101,14 +147,21 @@ const Hero = () => {
             </motion.div>
           </Col>
 
-          <Col xs={24} md={10} style={{ textAlign: 'center' }}>
+          <Col xs={24} md={10} style={{ textAlign: "center" }}>
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1 }}
               style={styles.imageWrapper}
             >
-              <div style={styles.blob}>
+              <div
+                style={{
+                  ...styles.blob,
+                  background: isDark
+                    ? "linear-gradient(135deg, #1890ff 0%, #001529 100%)"
+                    : "linear-gradient(135deg, #40a9ff 0%, #e6f7ff 100%)",
+                }}
+              >
                 <img src={user} alt="Avatar" style={styles.profileImg} />
               </div>
             </motion.div>
@@ -121,95 +174,79 @@ const Hero = () => {
 
 const styles = {
   section: {
-    minHeight: '100vh',
-    display: 'flex',
-    flexDirection: 'column', // Đổi sang column để Navbar nằm trên cùng
-    justifyContent: 'center',
-    background: '#0a0a0a', 
-    color: '#fff',
-    overflow: 'hidden',
-    position: 'relative',
-  },
-  navWrapper: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 1000,
-    // Nếu Navbar của bạn không có nền, bạn có thể thêm backdrop-filter ở đây
-    background: 'rgba(10, 10, 10, 0.8)',
-    backdropFilter: 'blur(10px)',
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    overflow: "hidden",
+    position: "relative",
+    transition: "background 0.4s ease, color 0.4s ease", // Hiệu ứng chuyển vùng mượt mà
   },
   container: {
-    maxWidth: '1200px',
-    margin: '0 auto',
-    padding: '100px 20px 40px', // Thêm padding-top để không bị Navbar đè lên
-    width: '100%',
+    maxWidth: "1200px",
+    margin: "0 auto",
+    padding: "120px 20px 40px", // Đảm bảo khoảng cách an toàn dưới Navbar cố định
+    width: "100%",
   },
   greeting: {
-    color: '#1890ff',
+    color: "#1890ff",
     fontWeight: 600,
-    letterSpacing: '2px',
-    fontSize: '14px',
+    letterSpacing: "2px",
+    fontSize: "14px",
   },
   name: {
-    color: '#fff',
-    fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
-    margin: '8px 0',
+    fontSize: "clamp(2.5rem, 5vw, 4.5rem)",
+    margin: "8px 0",
     fontWeight: 850,
+    transition: "color 0.4s ease",
   },
   typewriterWrapper: {
-    fontSize: '22px',
-    marginBottom: '24px',
-    height: '35px',
-  },
-  roleText: {
-    color: 'rgba(255,255,255,0.7)',
+    fontSize: "22px",
+    marginBottom: "24px",
+    height: "35px",
   },
   highlightText: {
-    color: '#1890ff',
-    fontWeight: 'bold',
+    color: "#1890ff",
+    fontWeight: "bold",
   },
   description: {
-    color: '#999',
-    fontSize: '17px',
-    lineHeight: '1.8',
-    maxWidth: '520px',
-    marginBottom: '40px',
+    fontSize: "17px",
+    lineHeight: "1.8",
+    maxWidth: "520px",
+    marginBottom: "40px",
+    transition: "color 0.4s ease",
   },
   primaryBtn: {
-    height: '48px',
-    padding: '0 25px',
-    borderRadius: '10px',
-    fontSize: '15px',
+    height: "48px",
+    padding: "0 25px",
+    borderRadius: "10px",
+    fontSize: "15px",
     fontWeight: 600,
-    boxShadow: '0 8px 20px rgba(24, 144, 255, 0.2)',
+    boxShadow: "0 8px 20px rgba(24, 144, 255, 0.2)",
   },
   socialIcon: {
-    fontSize: '22px',
-    color: 'rgba(255,255,255,0.6)',
-    transition: 'all 0.3s ease',
+    fontSize: "22px",
+    transition: "all 0.3s ease",
   },
   imageWrapper: {
-    position: 'relative',
-    display: 'inline-block',
+    position: "relative",
+    display: "inline-block",
   },
   blob: {
-    width: 'min(380px, 80vw)',
-    height: 'min(380px, 80vw)',
-    background: 'linear-gradient(135deg, #1890ff 0%, #001529 100%)',
-    borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    overflow: 'hidden',
-    animation: 'morph 8s ease-in-out infinite',
-    border: '1px solid rgba(255,255,255,0.1)',
+    width: "min(380px, 80vw)",
+    height: "min(380px, 80vw)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    overflow: "hidden",
+    animation: "morph 8s ease-in-out infinite",
+    border: "1px solid rgba(255,255,255,0.1)",
+    transition: "background 0.4s ease",
   },
   profileImg: {
-    width: '105%',
-    height: '105%',
-    objectFit: 'cover',
+    width: "105%",
+    height: "105%",
+    objectFit: "cover",
   },
 };
 

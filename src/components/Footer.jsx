@@ -4,18 +4,28 @@ import {
   FacebookFilled,
   InstagramOutlined,
   GithubFilled,
-  HeartFilled,
 } from "@ant-design/icons";
 import { motion } from "framer-motion";
+import { useTheme } from "../contexts/ThemeContext"; // Import hook sử dụng ThemeContext của bạn
 
 const { Footer: AntFooter } = Layout;
 const { Text } = Typography;
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { theme } = useTheme(); // Đọc trạng thái giao diện hệ thống
+  const isDark = theme === "dark";
 
   return (
-    <AntFooter style={styles.footer}>
+    <AntFooter
+      style={{
+        ...styles.footer,
+        backgroundColor: isDark ? "#050505" : "#ffffff", // Màu nền thay đổi theo theme
+        borderTop: isDark
+          ? "1px solid rgba(255, 255, 255, 0.06)"
+          : "1px solid rgba(0, 0, 0, 0.06)",
+      }}
+    >
       <div style={styles.container}>
         {/* Social Icons Section */}
         <Space size="large" style={{ marginBottom: "20px" }}>
@@ -36,7 +46,12 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ y: -5, color: "#1890ff" }}
-              style={styles.socialLink}
+              style={{
+                ...styles.socialLink,
+                color: isDark
+                  ? "rgba(255, 255, 255, 0.45)"
+                  : "rgba(0, 0, 0, 0.45)", // Đảo màu icon mạng xã hội
+              }}
             >
               {item.icon}
             </motion.a>
@@ -44,12 +59,24 @@ const Footer = () => {
         </Space>
 
         <Divider
-          style={{ borderColor: "rgba(255,255,255,0.05)", margin: "20px 0" }}
+          style={{
+            borderColor: isDark
+              ? "rgba(255, 255, 255, 0.06)"
+              : "rgba(0, 0, 0, 0.06)",
+            margin: "20px 0",
+          }}
         />
 
         {/* Copyright Section */}
         <div style={styles.copyrightBox}>
-          <Text style={styles.footerText}>
+          <Text
+            style={{
+              ...styles.footerText,
+              color: isDark
+                ? "rgba(255, 255, 255, 0.45)"
+                : "rgba(0, 0, 0, 0.55)",
+            }}
+          >
             © {currentYear}{" "}
             <Text strong style={{ color: "#1890ff" }}>
               Trần Khánh Hưng
@@ -65,31 +92,23 @@ const Footer = () => {
 
 const styles = {
   footer: {
-    backgroundColor: "#0a0a0a", // Cùng màu với toàn bộ trang
     padding: "40px 0",
     textAlign: "center",
-    borderTop: "1px solid rgba(255, 255, 255, 0.05)",
+    transition: "background-color 0.4s ease, border-top 0.4s ease", // Hiệu ứng chuyển vùng mượt mà
   },
   container: {
     maxWidth: "1200px",
     margin: "0 auto",
-    padding: "0 20px",
+    padding: "0 24px",
   },
   socialLink: {
     fontSize: "22px",
-    color: "rgba(255, 255, 255, 0.45)",
     transition: "all 0.3s ease",
   },
   footerText: {
-    color: "rgba(255, 255, 255, 0.45)",
     fontSize: "14px",
     letterSpacing: "0.5px",
-  },
-  madeBy: {
-    color: "rgba(255, 255, 255, 0.25)",
-    fontSize: "12px",
-    marginTop: "8px",
-    display: "inline-block",
+    transition: "color 0.4s ease",
   },
   copyrightBox: {
     marginTop: "10px",
